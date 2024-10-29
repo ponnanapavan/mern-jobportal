@@ -151,12 +151,11 @@ app.put('/api/v1/uploadResume', protectRoute, multerStorage.single('resume'), as
 });
 
 
-app.use(express.static(path.join(__dirname,'/jobportal-frontend/dist')))
+app.use(express.static(path.join(__dirname, '../jobportal-frontend/dist')));
 
-app.get('*',(req,res)=>{
-   
-       res.sendFile(path.join(__dirname,"jobportal-frontend","dist","index.html"))
-})
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../jobportal-frontend/dist/index.html'));
+});
 
 
 
