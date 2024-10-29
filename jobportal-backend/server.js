@@ -35,58 +35,58 @@ const io = new Server(server, {
 });
 
  
-// io.on('connection', (socket) => {
+io.on('connection', (socket) => {
     
-//     console.log('User connected:', socket.id);
+    console.log('User connected:', socket.id);
 
-//     let intervalId;  // Declare intervalId here to make sure it's accessible in both connection and disconnect
+    let intervalId;  // Declare intervalId here to make sure it's accessible in both connection and disconnect
 
-//     socket.on("userId", async (userId) => { // Listen for 'userId' event from client
-//         try {
-//             const user = await userModel.findById(userId); // Fetch user data from DB
-//             const recommendedJobs = [];
+    socket.on("userId", async (userId) => { // Listen for 'userId' event from client
+        try {
+            const user = await userModel.findById(userId); // Fetch user data from DB
+            const recommendedJobs = [];
             
-//             if (user) {
-//                 const sendJobRecommendations = async () => {
-//                     const getJobs = await userModel.find({ PersonType: 'recruiter' }).select('recuriter');
-//                     const skills = user.jobseeker.skills;
+            if (user) {
+                const sendJobRecommendations = async () => {
+                    const getJobs = await userModel.find({ PersonType: 'recruiter' }).select('recuriter');
+                    const skills = user.jobseeker.skills;
 
-//                     if (getJobs && getJobs.length > 0) {
-//                         getJobs.forEach((item) => {
-//                             item.recuriter.forEach((job) => {
-//                                 if (!job.appliedNumbers.includes(userId)) {
-//                                     const checkSkill = skills.some((skill) => job.skills.includes(skill));
-//                                     if (checkSkill) {
-//                                         recommendedJobs.push(job);
-//                                     }
-//                                 }
-//                             });
-//                         });
-//                     }
+                    if (getJobs && getJobs.length > 0) {
+                        getJobs.forEach((item) => {
+                            item.recuriter.forEach((job) => {
+                                if (!job.appliedNumbers.includes(userId)) {
+                                    const checkSkill = skills.some((skill) => job.skills.includes(skill));
+                                    if (checkSkill) {
+                                        recommendedJobs.push(job);
+                                    }
+                                }
+                            });
+                        });
+                    }
 
-//                     socket.emit('jobRecommendations', recommendedJobs); // Send initial job recommendations to client
-//                 };
+                    socket.emit('jobRecommendations', recommendedJobs); // Send initial job recommendations to client
+                };
 
-//                 await sendJobRecommendations();
+                await sendJobRecommendations();
 
-//                 // Set interval to send recommendations every 10 seconds
-//                 intervalId = setInterval(() => {
-//                     socket.emit('jobRecommendations', recommendedJobs);
-//                 }, 20000);
+                // Set interval to send recommendations every 10 seconds
+                intervalId = setInterval(() => {
+                    socket.emit('jobRecommendations', recommendedJobs);
+                }, 20000);
 
              
-//                 socket.on('disconnect', () => {
-//                     console.log('User disconnected:', socket.id);
-//                     clearInterval(intervalId);  // Stop the interval when the user disconnects
-//                 });
-//             } else {
-//                 console.error('User not found.');
-//             }
-//         } catch (err) {
-//             console.error('Error fetching job recommendations:', err.message);
-//         }
-//     });
-// });
+                socket.on('disconnect', () => {
+                    console.log('User disconnected:', socket.id);
+                    clearInterval(intervalId);  // Stop the interval when the user disconnects
+                });
+            } else {
+                console.error('User not found.');
+            }
+        } catch (err) {
+            console.error('Error fetching job recommendations:', err.message);
+        }
+    });
+});
 
 
 // Attach io instance to the app
