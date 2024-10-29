@@ -24,8 +24,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 console.log(__dirname)
-console.log(path.join(__dirname,"jobportal-frontend","dist","index.html"))
-
+console.log(path.join(__dirname, '../jobportal-frontend/dist'))
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -151,10 +150,9 @@ app.put('/api/v1/uploadResume', protectRoute, multerStorage.single('resume'), as
 });
 
 
-app.use(express.static(path.join(__dirname, '../jobportal-frontend/dist')));
-
+aapp.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../jobportal-frontend/dist/index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 
