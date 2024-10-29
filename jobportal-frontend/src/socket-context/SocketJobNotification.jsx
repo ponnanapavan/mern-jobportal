@@ -24,7 +24,7 @@ export const SocketProvider = ({ children }) => {
         const socket = io('https://mern-jobportal-1.onrender.com');
 
     
-        socket.on('connect', () => {
+        socket.on('connect', () => { 
             // console.log("Connected to the socket server");
             socket.emit('userId', userData.userid);
         });
