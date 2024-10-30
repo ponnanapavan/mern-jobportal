@@ -29,8 +29,9 @@ console.log(path.join(__dirname, '../jobportal-frontend/dist'))
 const server = http.createServer(app);
 const io = new Server(server, {
     cors:{
-        origin: ["http://localhost:5173"],
-    methods: ["GET", "POST"]
+        origin: "https://mern-jobportal-2.onrender.com", // Your frontend's deployed URL
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
