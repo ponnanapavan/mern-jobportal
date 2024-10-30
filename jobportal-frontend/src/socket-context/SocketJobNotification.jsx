@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }) => {
         }
   
         // Initialize the socket connection
-        const socket = io('http://localhost:5000');
+        const socket = io('https://mern-jobportal-2.onrender.com');
 
     
         socket.on('connect', () => {
