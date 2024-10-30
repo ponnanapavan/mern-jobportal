@@ -38,6 +38,7 @@ export const SocketProvider = ({ children }) => {
         socket.on('jobRecommendations', (data) => {
             setNewJobs(data);
             setCount(data.length)
+            console.log(data)
         });
 
         // Clean up when the component unmounts or the socket disconnects
