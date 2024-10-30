@@ -29,7 +29,7 @@ console.log(path.join(__dirname, '../jobportal-frontend/dist'))
 const server = http.createServer(app);
 const io = new Server(server, {
     cors:{
-        origin: "https://mern-jobportal-2.onrender.com", // Your frontend's deployed URL
+        origin: "*", // Your frontend's deployed URL
         methods: ["GET", "POST"],
         credentials: true
     }
