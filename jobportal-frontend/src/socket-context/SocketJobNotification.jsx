@@ -19,12 +19,12 @@ export const SocketProvider = ({ children }) => {
             // console.error("User data not found or invalid");
             return; // Exit if no userData
         }
-
+  
         // Initialize the socket connection
-        const socket = io('https://mern-jobportal-1.onrender.com');
+        const socket = io('http://localhost:5000');
 
     
-        socket.on('connect', () => { 
+        socket.on('connect', () => {
             // console.log("Connected to the socket server");
             socket.emit('userId', userData.userid);
         });
