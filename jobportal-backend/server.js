@@ -94,7 +94,7 @@ io.on('connection', (socket) => {
 app.io = io;
 
 
-app.use(cors())
+app.use(cors('*'))
 app.use(express.json());
 app.use(cookieParser());
 dotenv.config();
