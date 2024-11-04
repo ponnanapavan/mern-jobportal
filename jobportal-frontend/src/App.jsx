@@ -17,6 +17,7 @@ import RecruiterJobs from './component/recruiter/RecruiterJobs'
 import Applicants from './component/recruiter/Applicants'
 import AppliedJobs from './component/jobseeker/profile/AppliedJobs'
 import RecommendedJobs from './component/jobseeker/RecommendedJobs'
+import HomePage from './component/HomePage'
 
 
 
@@ -33,6 +34,7 @@ function App() {
           <Header/>
 
           <Routes>
+              <Route path='/' element={<HomePage/>}/>
               <Route path='/auth/signup'  element={<SignUp/>}/>
               <Route path='/auth/login' element={<Login/>}/>
               <Route path='/recruiter' element={<JobPost/>}/>

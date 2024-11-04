@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }) => {
         }
   
         // Initialize the socket connection
-        const socket = io("https://your-backend-url.com", { 
+        const socket = io("http://localhost:5000", { 
             transports: ["websocket", "polling"], 
             withCredentials: true // If you need to include cookies or credentials
           });
