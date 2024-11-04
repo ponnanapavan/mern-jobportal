@@ -14,8 +14,8 @@ import cloudinary from './lib/cloudinary.js';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import userModel from './models/user.model.js';
 import { protectRoute } from './middleware/protectRoute.js';
-import http from 'http'; // To create HTTP servers
-import { Server } from 'socket.io'; // For WebSockets
+import http from 'http'; 
+import { Server } from 'socket.io'; 
 
 
 // Initialize Express app
@@ -23,8 +23,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-console.log(__dirname)
-console.log(path.join(__dirname, '../jobportal-frontend/dist'))
+
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -38,13 +37,13 @@ const io = new Server(server, {
  
 io.on('connection', (socket) => {
     
-    console.log('User connected:', socket.id);
+  
 
-    let intervalId;  // Declare intervalId here to make sure it's accessible in both connection and disconnect
+    let intervalId;  
 
-    socket.on("userId", async (userId) => { // Listen for 'userId' event from client
+    socket.on("userId", async (userId) => { 
         try {
-            const user = await userModel.findById(userId); // Fetch user data from DB
+            const user = await userModel.findById(userId); 
             const recommendedJobs = [];
             
             if (user) {
@@ -70,7 +69,7 @@ io.on('connection', (socket) => {
 
                 await sendJobRecommendations();
 
-                // Set interval to send recommendations every 10 seconds
+               
                 intervalId = setInterval(() => {
                     socket.emit('jobRecommendations', recommendedJobs);
                 }, 20000);
@@ -78,7 +77,7 @@ io.on('connection', (socket) => {
              
                 socket.on('disconnect', () => {
                     console.log('User disconnected:', socket.id);
-                    clearInterval(intervalId);  // Stop the interval when the user disconnects
+                    clearInterval(intervalId);  
                 });
             } else {
                 console.error('User not found.');
@@ -90,7 +89,7 @@ io.on('connection', (socket) => {
 });
 
 
-// Attach io instance to the app
+
 app.io = io;
 
 
@@ -99,20 +98,20 @@ app.use(express.json());
 app.use(cookieParser());
 dotenv.config();
 
-// File storage setup for multer
+
 const storage = multer.memoryStorage();
 const multerStorage = multer({ storage: storage });
 
-// Routes setup
+
 app.use('/api/v1/auth', authRouther);
 
-//profileRoute
+
 app.use('/api/v1/user', userProfileRouter);
 
-//recuriterRoute
+
 app.use('/api/v1/recuriter', recuriterRouter);
 
-// Resume upload route
+
 app.put('/api/v1/uploadResume', protectRoute, multerStorage.single('resume'), async (req, res) => {
     try {
         const file = req.file;
